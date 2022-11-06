@@ -5,7 +5,7 @@ const vscode = require("vscode");
 function activate(context) {
     console.log('Congratulations, your extension "db-manager" is now active!');
     let disposable = vscode.commands.registerCommand('db-manager.helloWorld', () => {
-        vscode.window.showInformationMessage('Hello World from DB Manager!');
+        vscode.window.showInformationMessage('Kaixo MIKEL!');
     });
     context.subscriptions.push(disposable);
 }
