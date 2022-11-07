@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/app.css" />
+    <title>Table View</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="button-container">
+          <div class="button-action" id="button-refresh"></div>
+          <div class="button-action" id="button-add-row"></div>
+          <div class="button-action" id="button-delete"></div>
+          <div class="button-action" id="button-save"></div>
+          <div class="button-action" id="button-download"></div>
+        </div>
+      </header>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>
+                <p class="data-table__title"></p>
+                <p class="data-table__dtype"></p>
+              </th>
+              <th>
+                <p class="data-table__title">id</p>
+                <p class="data-table__dtype">integer</p>
+              </th>
+              <th>
+                <p class="data-table__title">name</p>
+                <p class="data-table__dtype">varchar(25)</p>
+              </th>
+              <th>
+                <p class="data-table__title">age</p>
+                <p class="data-table__dtype">integer</p>
+              </th>
+              <th>
+                <p class="data-table__title">score</p>
+                <p class="data-table__dtype">double precision</p>
+              </th>
+              <th>
+                <p class="data-table__title">dateofbirth</p>
+                <p class="data-table__dtype">date</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="data-table__cell table-index">
+                <div class="data-table__text-input input-integer" contenteditable="true">1</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-integer" contenteditable="true">3</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-text" contenteditable="true">mikel</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-integer" contenteditable="true">13</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-float" contenteditable="true">2.1</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-date" contenteditable="true">2022-03-12</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="data-table__cell table-index">
+                <div class="data-table__text-input input-integer" contenteditable="true">2</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-integer" contenteditable="true">4</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-text" contenteditable="true">urko</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-integer" contenteditable="true">18</div>
+              </td>
+              <td class="data-table__cell">
+                <div class="data-table__text-input input-float" contenteditable="true">9.3</div>
+              </td>
+              <td class="data-table__cell">
+                <div
+                  class="data-table__text-input input-date"
+                  ondblclick="this.setAttribute('contenteditable', true)"
+                  onblur="this.setAttribute('contenteditable', false)"
+                >
+                  2022-03-14
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <script defer src="../js/app.js"></script>
+    <script defer src="../js/resize.js"></script>
+  </body>
+</html>
