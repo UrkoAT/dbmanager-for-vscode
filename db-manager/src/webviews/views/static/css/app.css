@@ -1,0 +1,48 @@
+:root {
+    background: rgb(192, 192, 192);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.table-container {
+    background: white;
+    width: max-content;
+}
+
+.data-table {
+    border-collapse: collapse;
+}
+
+
+.data-table th,
+.data-table td {
+    border: 1px solid rgb(219, 219, 219);
+}
+
+.data-table thead tr th {
+    padding-inline: 0.5rem;
+    padding-block: 0.3rem;
+}
+
+.data-table__title {
+    text-align: start;
+    margin: 0;
+    font-weight: bold;
+}
+
+.data-table__dtype {
+    text-align: start;
+    font-weight: normal;
+    margin: 0;
+}
+
+.input-text {
+    text-align: start;
+}
+
+.input-integer {
+    text-align: end;
+}
+
+.input-float {
+    text-align: end;
+}
