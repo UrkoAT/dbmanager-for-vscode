@@ -12,22 +12,28 @@ const inputTypes = new Map([
     ['text', 'text'],
 ]);
 
+const DATA_TABLE = document.getElementById('data-table');
+
 
 
 
 const modelLoadCommand = async (jsonModel) => {
     const model = JSON.parse(jsonModel);
     setHeaders(model.headers);
-    model.rows.forEach(row => setNewRow(row, model.headers));
+    const tbody = document.createElement('tbody');
+    model.rows.forEach(async row => {
+        const r = await createNewRow(row, model.headers);
+        tbody.appendChild(r);
+    });
+    DATA_TABLE.appendChild(tbody);
 };
 
 const commandMap = new Map();
 commandMap.set('model-load', modelLoadCommand);
 
 const setHeaders = (headers) => {
-    const table = document.getElementById('data-table');
-    const tHead = table.createTHead();
-    const headerRow = tHead.insertRow();
+    const thead = DATA_TABLE.createTHead();
+    const headerRow = thead.insertRow();
     for (let i = 0; i < headers.length; i++) {
         const header = headers[i];
         const th = document.createElement('th');
@@ -42,13 +48,13 @@ const setHeaders = (headers) => {
 
         th.appendChild(pTitle);
         th.appendChild(pType);
-
         headerRow.appendChild(th);
     }
-    table.appendChild(headerRow);
+
+    thead.appendChild(headerRow);
 };
 
-const setNewRow = async (row, headers) => {
+const createNewRow = async (row, headers) => {
     const tr = document.createElement('tr');
     tr.dataset._id = row._id;
     for (let i = 0; i < headers.length; i++) {
@@ -56,7 +62,7 @@ const setNewRow = async (row, headers) => {
         const cell = createNewCell(header.type, row[header.name]);
         tr.appendChild(cell);
     }
-    document.getElementById('data-table').appendChild(tr);
+    return tr;
 };
 
 const createNewCell = (type, value) => {
@@ -64,21 +70,29 @@ const createNewCell = (type, value) => {
     td.classList.add('data-table__cell');
     const innerDiv = document.createElement('div');
     innerDiv.setAttribute('contenteditable', true);
+    innerDiv.setAttribute('spellcheck', false);
     innerDiv.classList.add('data-table__text-input');
     innerDiv.classList.add('input-' + inputTypes.get(type));
     innerDiv.innerText = value;
+    td.appendChild(innerDiv);
+    return td;
 };
 
 const messageListener = async (ev) => {
-    const message = ev.data;
+    const message = ev.detail;
     commandMap.get(message.command)(message.data);
 };
 
 
 
-window.addEventListener('message', messageListener, false);
+document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('message', messageListener);
+    const msg = new CustomEvent('message', { detail: { command: 'model-load', data: JSON.stringify(model) } });
+    await new Promise(resolve => setTimeout(resolve, 500));
+    document.dispatchEvent(msg);
+});
 
-new Event('message', { data: { command: 'model-load', data: JSON.stringify(model) } });
+
 
 
 
