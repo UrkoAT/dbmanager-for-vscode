@@ -14,9 +14,6 @@ const inputTypes = new Map([
 
 const DATA_TABLE = document.getElementById('data-table');
 
-
-
-
 const modelLoadCommand = async (jsonModel) => {
     const model = JSON.parse(jsonModel);
     setHeaders(model.headers);
@@ -59,15 +56,16 @@ const createNewRow = async (row, headers) => {
     tr.dataset._id = row._id;
     for (let i = 0; i < headers.length; i++) {
         const header = headers[i];
-        const cell = createNewCell(header.type, row[header.name]);
+        const cell = createNewCell(header.type, row[header.name], i);
         tr.appendChild(cell);
     }
     return tr;
 };
 
-const createNewCell = (type, value) => {
+const createNewCell = (type, value, idx) => {
     const td = document.createElement('td');
     td.classList.add('data-table__cell');
+    td.dataset._idx = idx;
     const innerDiv = document.createElement('div');
     innerDiv.setAttribute('contenteditable', true);
     innerDiv.setAttribute('spellcheck', false);
@@ -82,8 +80,6 @@ const messageListener = async (ev) => {
     const message = ev.detail;
     commandMap.get(message.command)(message.data);
 };
-
-
 
 document.addEventListener('DOMContentLoaded', async () => {
     document.addEventListener('message', messageListener);
