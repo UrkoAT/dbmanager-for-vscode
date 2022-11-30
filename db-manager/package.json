@@ -1,7 +1,7 @@
 {
   "name": "db-manager",
   "displayName": "db-manager",
-  "description": "Visual Database Manager for VSCode",
+  "description": "Database manager for VSCode",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.73.0"
@@ -22,30 +22,38 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run package",
-    "compile": "webpack",
-    "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "vscode:prepublish": "npm run compile",
+    "compile": "rollup -c && webpack --mode production",
     "lint": "eslint src --ext ts",
+    "watch": "concurrently \"rollup -c -w\" \"webpack --mode development --watch\"",
+    "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.73.0",
+    "@rollup/plugin-commonjs": "^23.0.3",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.1.0",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "@tsconfig/svelte": "^3.0.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "16.x",
-    "@typescript-eslint/eslint-plugin": "^5.38.1",
-    "@typescript-eslint/parser": "^5.38.1",
-    "eslint": "^8.24.0",
+    "@types/vscode": "^1.73.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vscode/test-electron": "^2.2.0",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.26.0",
     "glob": "^8.0.3",
-    "mocha": "^10.0.0",
-    "typescript": "^4.8.4",
+    "mocha": "^10.1.0",
+    "rollup": "^2.79.1",
+    "rollup-plugin-svelte": "^7.1.0",
+    "svelte": "^3.53.1",
+    "svelte-check": "^2.10.0",
+    "svelte-preprocess": "^4.10.7",
     "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "@vscode/test-electron": "^2.1.5"
+    "webpack-cli": "^4.10.0"
   }
 }
